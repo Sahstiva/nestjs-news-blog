@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Comment } from './comments/comments.service';
 
 export interface News {
   id?: number;
@@ -6,6 +7,8 @@ export interface News {
   description: string;
   author: string;
   countView?: number;
+  cover?: string;
+  comments?: Comment[];
 }
 
 export interface NewsEdit {
@@ -14,9 +17,10 @@ export interface NewsEdit {
   description?: string;
   author?: string;
   countView?: number;
+  cover?: string;
 }
 
-function getRandomInt(min: number, max: number): number {
+export function getRandomInt(min = 1, max = 9999): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
@@ -31,6 +35,8 @@ export class NewsService {
       description: 'Ураааа! Наша первая новость',
       author: 'Владислав',
       countView: 12,
+      cover:
+        'https://cdnn21.img.ria.ru/images/148839/96/1488399659_0:0:960:960_600x0_80_0_1_e38b72053fffa5d3d7e82d2fe116f0b3.jpg',
     },
   ];
 
@@ -62,8 +68,9 @@ export class NewsService {
       };
       return this.news[indexEditNews];
     }
-    return this.news.find((news) => news.id === id);
+    return undefined;
   }
+
   remove(id: News['id']): boolean {
     const indexRemoveNews = this.news.findIndex((news) => news.id === id);
     if (indexRemoveNews !== -1) {
