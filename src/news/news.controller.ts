@@ -10,9 +10,9 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { News, NewsEdit, NewsService } from './news.service';
-import { renderNewsAll } from '../views/news/news-all';
-import { renderTemplate } from '../views/template';
-import { CommentsService } from './comments/comments.service';
+import { renderNewsAll } from '../views/news/news-all.js';
+import { renderTemplate } from '../views/template.js';
+import { CommentsService } from './comments/comments.service.js';
 
 @Controller('news')
 export class NewsController {
