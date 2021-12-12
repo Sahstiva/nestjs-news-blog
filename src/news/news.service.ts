@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Comment } from './comments/comments.service';
+import { Comment } from './comments/comments.service.js';
 
 export interface News {
   id?: number;

@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { News, NewsEdit, NewsService } from './news.service';
 import { renderNewsAll } from '../views/news/news-all.js';
+import { renderDetailNews } from '../views/news/news-detail';
 import { renderTemplate } from '../views/template.js';
 import { CommentsService } from './comments/comments.service.js';
 
@@ -45,6 +46,18 @@ export class NewsController {
     return renderTemplate(content, {
       title: 'Список новостей',
       description: 'Самый крутые новости на свете!',
+    });
+  }
+
+  @Get('/:id/detail')
+  getDetailView(@Param('id') id: string) {
+    const idInt = parseInt(id);
+    const news = this.newsService.find(idInt);
+    const comments = this.commentsService.find(idInt);
+    const content = renderDetailNews(news, comments);
+    return renderTemplate(content, {
+      title: 'Подробная новость',
+      description: 'Самая крутая новость на свете!',
     });
   }
 
